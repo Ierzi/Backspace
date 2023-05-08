@@ -1,6 +1,8 @@
 # Command_Prompt_FR / Panel De Commande
 Command Prompt / Panel de Commande is a python program made in April by Ierzi only. First, install Python at python.org/downloads. After, install for this example VSCode at code.visualstudio.com/download and install the Python extention by Microsoft. After all of that, import the file called Panel de Commande and execute it.
 
+OR you can download python, then double click the file called Panel De Commande and it will straight up execute the program.
+
 For English Peoples, i will make a english version of this program soon, don't woory :)
 
 # Important Commands
