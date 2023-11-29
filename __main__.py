@@ -1,12 +1,18 @@
 # Import Modules
-import time, random
-
+import time
+import random
+import getpass
+import hashlib
 
 
 # Connnexion to the account
 
 name = input("Inisialisation du panel de commande Python, veuillez entrer votre nom: ")
-password = input("Veuillez rentrez votre mot de passe: ")
+password = getpass.getpass("Veuillez rentrez votre mot de passe: ")
+
+print("Creating your recovery keys...")
+
+
 
 # Initialization
 time.sleep(3)
@@ -19,7 +25,7 @@ time.sleep(0.5)
 # Program Loop
 while True : 
     # Asking For A Command
-    commande = input("Panel De Commande Python, Veuillez Entrez Votre Commande: ")
+    commande = input("Panel De Commande Python, Veuillez Entrez Votre Commande: ").strip().lower()
 
 
     if commande == "quit" :
@@ -53,14 +59,14 @@ while True :
 
 
     # Settings Command
-    if commande == "Settings" :
+    if commande == "settings" :
         time.sleep(2)
 
         # Checking The Password
         passworkcheck = input("Bienvenue dans les paramètres utilisateurs. Veuillez entrez votre mot de passe aveant de continuer: ")
         if passworkcheck == password :
             # Password Checked
-            commandesettings = input("Que voulez-vous changez dans l'application Settings ?  ")
+            commandesettings = input("Que voulez-vous changez dans l'application Settings ?")
             if commandesettings == "quit" :
                 # Quitting The Program
                 pass
@@ -94,7 +100,7 @@ while True :
 
 
     # About The Control Panel
-    if commande == "About" :
+    if commande == "about" :
         print("Le Panel De Commande Python est un panel de commande à usage multiple depuis la v2.0 ! Crée par Ierzi le 03/05/2023.")
  
 
@@ -335,3 +341,7 @@ while True :
 
         # Print the Random Command
         print(edc_text)
+
+
+    if commande == "gettime" or commande == "get time" or commande == "gt":
+        print(f"We are the")
