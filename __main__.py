@@ -6,11 +6,18 @@ import hashlib
 import string
 import os
 import sys
+import datetime
+import colorama
+from colorama import Fore as Color
+
+# Initializing Colorama
+colorama.init()
+
 
 # Connnexion to the account
 
-name = input("Backpase initialisation, please enter your name: ")
-password = getpass.getpass("Please write your passwords: ")
+name = input(f"{Color.RESET}Backpase initialisation, please enter your name: ")
+password = getpass.getpass("Please write your password: ")
 
 print("Creating your recovery keys...")
 with open("saves/64chars/64characters_saves.txt", "w") as save_file:
@@ -69,10 +76,10 @@ while True :
         time.sleep(2)
 
         # Checking The Password
-        passworkcheck = input("Bienvenue dans les paramètres utilisateurs. Veuillez entrez votre mot de passe aveant de continuer: ")
-        if passworkcheck == password :
+        passworkcheck = input("Welcome to the settings. Please enter your password.")
+        if passworkcheck == password:
             # Password Checked
-            commandesettings = input("Que voulez-vous changez dans l'application Settings ?")
+            commandesettings = input("What do you want to do ? Change the password (password) or quit (quit) ?")
             if commandesettings == "quit" :
                 # Quitting The Program
                 pass
@@ -80,8 +87,8 @@ while True :
             if commandesettings == "password" :
                 
                 #Changing The Password
-                changingpassword = input("Voulez-vous changez de mot de passe ? Y = Oui, N = Non  ")
-                
+                changingpassword = input(f"Change the password ? \n {Color.GREEN}Yes (Y) \n {Color.RED}No (N) \n").upper().strip()
+                print(Color.RESET)
                 # Changing The Password: Conditions
                 if changingpassword == "Y" :
                     password = input("Ecris ici ton nouveau mot de passe: ")
@@ -106,20 +113,20 @@ while True :
 
 
     # About The Control Panel
-    if commande == "about" :
-        print("Le Panel De Commande Python est un panel de commande à usage multiple depuis la v2.0 ! Crée par Ierzi le 03/05/2023.")
+    if commande == "about":
+        print("Backspace is a command panel made by Ierzi the 03/05/2023. It includes various commands like calcul, settings, about, versions, game1, game2, game3, g4, quit. You can also use the EDC command to get an example of a command.")
  
 
     # Control Panel Version
     if commande == "versions" or commande == "v" or commande == "ver" :
         print("PDCP v2.4 - 64 Characters Save System Update - 27/12/2023")
-        if commande.endswith("--changelog"):
+        if commande.endswith(" --message"):
             print("Added 64 Characters Save System.")
 
   
 
     # Game1: The Guesses Game
-    if commande == "The Random Game" or commande == "The Guesses Game" or commande == "game1" or commande == "Game1":
+    if commande == "The Random Game" or commande == "The Guesses Game" or commande == "game1":
         randomnum = random.randint(1, 20)
         tries = 0
         is_playerwongame1 = False
@@ -305,39 +312,7 @@ while True :
 
     # Lucky Number Finder
 
-    if commande == "Divin Chanceux" or commande == "DC" or commande == "Game 4" or commande == "game4" or commande == "g4" :
 
-        # Explainations
-
-        print("Bienvenue dans le jeu du Divin Chanceux !")
-        time.sleep(3)
-        print(" Je vais penser à un nombre entre 1 et 20 et tu dois donner un nombre plus petit que celui là !")
-        time.sleep(3)
-        print("Le problème est que tu ne connais pas le nombre !")
-        input()
-
-        # Choosing a random number between 1 and 20
-
-        g4_number= random.randint(1, 20)
-
-        g4_usernumber = int(input("Tape ton nombre ici : "))
-
-
-        # Show The Numbers
-
-        print("Vous avez choisi : ", g4_usernumber)
-        print("J'ai choisi : ", g4_number)
-
-        # Winning Conditions
-
-        if g4_usernumber > g4_number :
-            print("J'ai gagné ! Bien joué !")
-        elif g4_number == g4_usernumber :
-            print("Personne n'a gagné, c'est une égalité...")
-        elif g4_number > g4_usernumber :
-            print("Tu as gagné ! Bravo ! ")
-        
-        
 
     
     # Commands Examples
@@ -353,5 +328,5 @@ while True :
         print(edc_text)
 
 
-    if commande == "gettime" or commande == "get time" or commande == "gt":
-        print(f"We are the")
+    if commande == "gettime" or commande == "gt":
+        print(f"We are the {datetime.datetime.now().time()}")
