@@ -3,20 +3,28 @@ import time
 import random
 import getpass
 import hashlib
-
+import string
+import os
+import sys
 
 # Connnexion to the account
 
-name = input("Inisialisation du panel de commande Python, veuillez entrer votre nom: ")
-password = getpass.getpass("Veuillez rentrez votre mot de passe: ")
+name = input("Backpase initialisation, please enter your name: ")
+password = getpass.getpass("Please write your passwords: ")
 
 print("Creating your recovery keys...")
+with open("saves/64chars/64characters_saves.txt", "w") as save_file:
+    for _ in range(10):
+        string_save = ""
+        for _ in range(64):
+            string_save += random.choice(string.ascii_letters + string.digits)
+
+        save_file.write(f"{string_save}\n")
 
 
 
 # Initialization
-time.sleep(3)
-print("Initialisation du panel de commande Python terminé. Redirection automatique vers le menu.")
+print(f"Backspace initialisation 100% complete. Welcome {name}!")
 time.sleep(0.5)
 
 
@@ -25,7 +33,7 @@ time.sleep(0.5)
 # Program Loop
 while True : 
     # Asking For A Command
-    commande = input("Panel De Commande Python, Veuillez Entrez Votre Commande: ").strip().lower()
+    commande = input("Please enter a command: ").strip().lower()
 
 
     if commande == "quit" :
@@ -55,8 +63,6 @@ while True :
             # Result
             result = a - b
             print("Le résultat est: ", result)
-            
-
 
     # Settings Command
     if commande == "settings" :
@@ -106,7 +112,11 @@ while True :
 
     # Control Panel Version
     if commande == "versions" or commande == "v" or commande == "ver" :
-        print("PDCP v2.3 BETA - DC Update - 05/05/2023")
+        print("PDCP v2.4 - 64 Characters Save System Update - 27/12/2023")
+        if commande.endswith("--changelog"):
+            print("Added 64 Characters Save System.")
+
+  
 
     # Game1: The Guesses Game
     if commande == "The Random Game" or commande == "The Guesses Game" or commande == "game1" or commande == "Game1":
