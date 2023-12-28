@@ -16,6 +16,15 @@ except ImportError:
     import colorama
     from colorama import Fore as Color
 
+# Important variables
+
+__author__ = "Ierzi"
+__version__ = "2.41"
+__doc__ = "documentation/README.md"
+__version_date__ = "27/12/2023"
+__name__ = "Backspace"
+__description__ = "A command panel made by Ierzi the 03/05/2023."
+
 # Initializing Colorama
 colorama.init()
 
