@@ -20,15 +20,40 @@ except ImportError:
 
 __author__ = "Ierzi"
 __version__ = "2.41"
-__doc__ = "documentation/README.md"
+__doc__ = "README.md"
 __version_date__ = "27/12/2023"
 __name__ = "Backspace"
 __description__ = "A command panel made by Ierzi the 03/05/2023."
 
+# Functions
+
+def _recovery_keys():
+    """
+    This function is used to generate the recovery keys.
+    """
+
+    print("Creating your recovery keys...")
+    if os.path.exists("saves/64chars/64characters_saves.txt"):
+        os.remove("saves/64chars/64characters_saves.txt")
+
+
+    with open("saves/64chars/64characters_saves.txt", "w") as save_file:
+        for _ in range(10):
+            string_save = ""
+            for _ in range(64):
+                string_save += random.choice(string.ascii_letters + string.digits)
+
+            save_file.write(f"{string_save}\n")
+
+
+
+
+
+
 # Initializing Colorama
 colorama.init()
 
-# Resetting the saved characters (/saves/64chars/64characters_saves.txt)
+# Resetting the saved characters (saves/64chars/64characters_saves.txt)
 # Without using a .bat file, we can delete the file and create a new one with the same name later.
 # We prevent triggering an error by putting a if condition if the file doesn't exist.
 
@@ -45,15 +70,7 @@ name = input(f"{Color.RESET}Backpase initialisation, please enter your name: ")
 password = getpass.getpass("Please write your password: ")
 
 print("Creating your recovery keys...")
-with open("saves/64chars/64characters_saves.txt", "w") as save_file:
-    for _ in range(10):
-        string_save = ""
-        for _ in range(64):
-            string_save += random.choice(string.ascii_letters + string.digits)
-
-        save_file.write(f"{string_save}\n")
-
-
+_recovery_keys()
 
 # Initialization
 print(f"Backspace initialisation 100% complete. Welcome {name}!")
@@ -65,7 +82,7 @@ time.sleep(0.5)
 # Program Loop
 while True : 
     # Asking For A Command
-    commande = input("Please enter a command: ").strip().lower()
+    commande = input(f"{Color.RESET}Please enter a command: ").strip().lower()
 
 
     if commande == "quit" :
@@ -112,16 +129,18 @@ while True :
             if commandesettings == "password" :
                 
                 #Changing The Password
-                changingpassword = input(f"Change the password ? \n {Color.GREEN}Yes (Y) \n {Color.RED}No (N) \n").upper().strip()
-                print(Color.RESET)
+                changingpassword = input(f"Change the password ? \n {Color.GREEN}Yes (Y) \n {Color.RED}No (N) \n{Color.RESET}").upper().strip()
+                
                 # Changing The Password: Conditions
                 if changingpassword == "Y" :
-                    password = input("Ecris ici ton nouveau mot de passe: ")
-                    print("Changement du mot de passe effectué ! Redirection vers le menu du panel de commande Python.")
+                    password = input("New password: ")
+                    print("Changing password...")
+                    _recovery_keys()
+                    print("Password changed successfully.")
 
                 else : 
                     if changingpassword == "N" :
-                        print("Redirection automatique vers le menu du panel de commande Python...")
+                        print("Returning to the main menu...")
                         time.sleep(1)
 
                     else :
@@ -151,7 +170,7 @@ while True :
   
 
     # Game1: The Guesses Game
-    if commande == "The Random Game" or commande == "The Guesses Game" or commande == "game1":
+    if commande == "The Random Game" or commande == "The Guesses Game" or commande == "game1" or commande == "g1":
         randomnum = random.randint(1, 20)
         tries = 0
         is_playerwongame1 = False
