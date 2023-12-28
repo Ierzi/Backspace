@@ -7,11 +7,27 @@ import string
 import os
 import sys
 import datetime
-import colorama
-from colorama import Fore as Color
+
+try:
+    import colorama
+    from colorama import Fore as Color
+except ImportError:
+    os.system("pip install colorama")
+    import colorama
+    from colorama import Fore as Color
 
 # Initializing Colorama
 colorama.init()
+
+# Resetting the saved characters (/saves/64chars/64characters_saves.txt)
+# Without using a .bat file, we can delete the file and create a new one with the same name later.
+# We prevent triggering an error by putting a if condition if the file doesn't exist.
+
+if os.path.exists("saves/64chars/64characters_saves.txt"):
+    os.remove("saves/64chars/64characters_saves.txt")
+
+
+# Getting the user's name and password
 
 
 # Connnexion to the account
