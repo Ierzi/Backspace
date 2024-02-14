@@ -1,2 +1,4 @@
 **/__pycache__
-*.txt
+saves/64chars/64characters_saves.txt
+.venv/
+.idea/
