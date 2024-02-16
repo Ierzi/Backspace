@@ -18,9 +18,9 @@ except ImportError:
 # Important variables
 
 __author__ = "Ierzi"
-__version__ = "2.41"
+__version__ = "2.5"
 __doc__ = "README.md"
-__version_date__ = "27/12/2023"
+__version_date__ = "14/02/2023"
 __name__ = "Backspace"
 __description__ = "A command panel made by Ierzi the 03/05/2023."
 
@@ -66,6 +66,10 @@ password = getpass.getpass("Please write your password: ")
 
 _recovery_keys()
 
+# Setting all the addons to a not downloaded state.
+shortit_installed = False
+games_installed = False
+
 # Initialization
 print(f"Backspace initialisation 100% complete. Welcome {name}!")
 time.sleep(0.5)
@@ -75,9 +79,20 @@ while True:
     # Asking For A Command
     commande = input(f"{Color.RESET}Please enter a command: ").strip().lower()
 
-    if (commande.startswith("quit") or commande.startswith("q") or
-            commande.startswith("exit") or commande.startswith("e") or commande.startswith("stop") or
-            commande.startswith("s")
+    # Installing optional modules
+    if commande.startswith("install"):
+        demanded_package = commande.lstrip("install").strip().lower()
+        if demanded_package == "shortit":
+            shortit_installed = True
+            from addons import shortit
+            print(f"{Color.GREEN}Sucessfully installed ShortIt!{Color.RESET}")
+        elif demanded_package == "games":
+            games_installed = True
+            from addons import games
+            print(f"{Color.GREEN}Sucessfully installed Games!{Color.RESET}")
+
+    elif (commande.startswith("quit") or
+            commande.startswith("exit") or commande.startswith("stop")
     ):
         # Quitting The Control Panel
         if commande.endswith(" --force"):
@@ -85,7 +100,7 @@ while True:
             sys.exit(random.seed(datetime.datetime.now().second * .42))
 
         print("Are you sure you want to quit?")
-        print(f"{Color.RED}Yes (Y) \n{Color.GREEN}No (N) \n{Color.RESET}")
+        print(f"{Color.RED}Yes (Y) \n{Color.GREEN}No (N){Color.RESET}")
         quit_confirmation = input("").lower().strip()
 
         if quit_confirmation == "y":
@@ -95,7 +110,7 @@ while True:
             print("Returning to the main menu...")
             time.sleep(1)
     # OPS
-    if commande == "calcul":
+    elif commande == "calcul":
         # Type of Operations
         time.sleep(2)
         calcultype = input("Quel type de calcul ? Addition ou soustraction (A ou S) ? ")
@@ -118,7 +133,7 @@ while True:
             print("Le résultat est: ", result)
 
     # Settings Command
-    if commande == "settings":
+    elif commande == "settings":
         time.sleep(2)
 
         # Checking The Password
@@ -160,21 +175,21 @@ while True:
             time.sleep(1)
 
     # About The Control Panel
-    if commande == "about":
+    elif commande == "about":
         print("Backspace is a command panel made by Ierzi the 03/05/2023. "
               "It includes various commands like calcul, settings, about, versions, game1, game2, game3, g4, quit. "
               "You can also use the EDC command to get an example of a command."
         )
  
     # Control Panel Version
-    if (commande.startswith("versions") or commande.startswith("version") or commande.startswith("ver") or
+    elif (commande.startswith("versions") or commande.startswith("version") or commande.startswith("ver") or
             commande.startswith("v")):
-        print("PDCP v2.4 - 64 Characters Save System Update - 27/12/2023")
+        print("PDCP v2.5 - SHortIt! - 14/02/24")
         if commande.endswith(" --message"):
-            print("Added 64 Characters Save System.")
+            print("Added the ShortIt addon.")
 
     # Game1: The Guesses Game
-    if commande == "The Random Game" or commande == "The Guesses Game" or commande == "game1" or commande == "g1":
+    elif commande == "The Random Game" or commande == "The Guesses Game" or commande == "game1" or commande == "g1":
         randomnum = random.randint(1, 20)
         tries: int = 0
         is_playerwongame1 = False
@@ -186,12 +201,12 @@ while True:
         
         # Asking for the tries
         tries = int(input("Combien veux-tu d'essais ?  "))
-        
+
         # Game Starts: Game Loop
         while tries != 0 and not is_playerwongame1:
             guess = int(input("Entre ici ton choix: "))
             tries -= 1
-        
+
             if guess == randomnum:
                 # Win
                 print("Tu as gagné !")
@@ -210,7 +225,7 @@ while True:
                 print("Tu n'as plus d'essais ! Dommage ! Le nombre était ", randomnum)
 
     # Rock Paper Scissors
-    if commande == "game2" or commande == "Game2" or commande == "PFC" or commande == "PPC":
+    elif commande == "game2" or commande == "Game2" or commande == "PFC" or commande == "PPC":
         # Game Options and Init
         ppcoptions = ["Pierre", "Papier", "Ciseaux"]
         PPCuserchoice = 0
@@ -249,12 +264,12 @@ while True:
         # Return To The Menu (automatically)
 
     # Simple Random Number Generator Program
-    if commande == "RNG":
+    elif commande == "RNG":
         RNGnum = random.randint(1, 100)
         print(RNGnum)
 
     # The Restaurant Game (Biggest Game So Far)
-    if commande == "Restaurant Game" or commande == "Game 3" or commande == "game3" or commande == "g3":
+    elif commande == "Restaurant Game" or commande == "Game 3" or commande == "game3" or commande == "g3":
         time.sleep(2)
 
         # Restaurant Name
@@ -263,11 +278,11 @@ while True:
         
         time.sleep(2)
 
-        # First recepie
+        # First recipie
         print("Pour commencer à avoir des clients dans ton restaurant, tu dois créer des recettes")
         g3_recette1 = input("Comment veux-tu nommer ta première recette ? ")
         
-        # Ingredients in the recepie
+        # Ingredients in the recipie
         time.sleep(2)
 
         print("Il y aura 3 ingrédients dans ta recette :")
@@ -354,7 +369,7 @@ while True:
     # Lucky Number Finder
 
     # Commands Examples
-    if commande == "Exemples de commande" or commande == "EDC" or commande == "edc":
+    elif commande == "Exemples de commande" or commande == "EDC" or commande == "edc":
         
         # Choosing a Random Command
 
@@ -364,5 +379,20 @@ while True:
         # Print the Random Command
         print(edc_text)
 
-    if commande == "gettime" or commande == "gt":
+    elif commande == "gettime" or commande == "gt":
         print(f"We are the {datetime.datetime.now().time()}")
+
+    # The Addons Commands
+    # See the "install" command
+
+    # ShortIt!
+    elif commande.startswith("shortit") or commande.startswith("s-it"):
+        # Checks if we installed the shortit package
+        if shortit_installed:
+            # Strips the command and gets the link to shortify
+            # Using the shortit extension, shorts it.
+            link_to_shortify = commande.lstrip("shortit").strip().lower()
+            shortit.short(link_to_shortify)
+        else:
+            print(f"{Color.RED}You didn't install the ShortIt package.")
+            print(f'Please install it using the command "install shortit"{Color.RESET}')
